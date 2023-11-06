@@ -19,12 +19,19 @@ RSpec.describe Seeds::CreateDefaultTasklists do
     expect { service.call(lists_data: data_sample, templates_data: data_sample) }.not_to raise_error
   end
 
-  context 'with seeds yml files' do
-    let(:lists_data) { YAML.load_file(Rails.root.join('db/seeds/tasklists.yml')).map(&:deep_symbolize_keys) }
-    let(:templates_data) { YAML.load_file(Rails.root.join('db/seeds/templates.yml')).map(&:deep_symbolize_keys) }
+  describe '.load_seed_data!' do
+    subject(:seed_data_loading) { described_class.load_seed_data! }
 
     it 'creates some data with no failure' do
-      expect { service.call(lists_data:, templates_data:) }.not_to raise_error
+      expect { seed_data_loading }.not_to raise_error
+    end
+
+    it 'creates tasklist' do
+      expect { seed_data_loading }.to change { List.tasklists.count }.from(0).to(1)
+    end
+
+    it 'creates templates' do
+      expect { seed_data_loading }.to change { List.templates.count }.from(0).to(2)
     end
   end
 end

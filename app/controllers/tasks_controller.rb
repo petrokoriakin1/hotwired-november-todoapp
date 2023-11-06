@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  def index
-    @tasks = Task.all
-    @task = Task.new
-  end
-
   def show
     @task = Task.find(params[:id])
   end
@@ -23,16 +18,16 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to tasks_url, notice: I18n.t(:task_created) }
+        format.html { redirect_to list_url(@task.list), notice: I18n.t(:task_created) }
       else
-        format.html { redirect_to tasks_url, alert: @task.errors.full_messages }
+        format.html { redirect_to list_url(@task.list), alert: @task.errors.full_messages }
       end
     end
   end
 
   def toggle
     @task = Task.find(params[:id])
-    @task.update(completed: params[:completed])
+    @task.mark!(completed: params[:completed])
 
     render json: { message: 'Success' }
   end
@@ -42,7 +37,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to tasks_url, notice: I18n.t(:task_updated) }
+        format.html { redirect_to list_url(@task.list), notice: I18n.t(:task_updated) }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -53,12 +48,12 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to tasks_url, notice: I18n.t(:task_deleted)
+    redirect_to list_url(@task.list), notice: I18n.t(:task_deleted)
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:title)
+    params.require(:task).permit(:title, :description, :section_id)
   end
 end

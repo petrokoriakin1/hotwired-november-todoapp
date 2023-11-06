@@ -27,7 +27,7 @@ class ListCompositionService
   def compose_list!
     return default_list if sections.empty?
 
-    list = List.create!(title:, description:)
+    list = List.create!(title:, description:, template:)
     sections.each do |section_data|
       title, tasks = section_data.values_at(:title, :tasks)
       section = Section.create!(list:, title:)
