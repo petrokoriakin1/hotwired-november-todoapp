@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Tasks' do
+RSpec.describe 'TaskList' do
   describe 'GET /' do
     context 'when task exist' do
       before do

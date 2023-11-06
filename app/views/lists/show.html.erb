@@ -10,14 +10,18 @@
   </p>
 <% end %>
 
-<h1 class="font-bold text-2xl">Task List</h1>
+<h1 class="font-bold text-2xl"><%= @list.title %></h1>
+
+<p><%= @list.description %></p>
 
 <div id="tasks" data-controller="tasks">
   <div class="px-5">
-    <%= render @tasks %>
+    <% @list.sections.each do |section| %>
+      <%= render "section", section: section %>
+    <% end %>
   </div>
 </div>
 
 <div class="mt-4">
-  <%= render "form", task: @task %>
+  <%= render "tasks/form", task: Task.new %>
 </div>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :lists, only: :show
+
   resources :tasks do
     member do
       post :toggle
@@ -14,5 +16,5 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  root 'tasks#index'
+  root 'home#dashboard'
 end
