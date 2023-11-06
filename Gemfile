@@ -46,3 +46,7 @@ group :development, :test do
   gem 'rubocop-rails', '~> 2.22'
   gem 'rubocop-rspec', '~> 2.25'
 end
+
+gem "sentry-ruby", "~> 5.12"
+
+gem "sentry-rails", "~> 5.12"
