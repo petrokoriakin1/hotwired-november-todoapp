@@ -1,4 +1,4 @@
-- name: Annual Dry-Dock Checklist
+- title: Annual Dry-Dock Checklist
   sections:
     - title: Pre-Dry-Dock Planning
       tasks:
@@ -23,7 +23,7 @@
         - title: Emergency Protocol Review
           description: Review emergency protocols with the entire dry-dock team.
 
-- name: Quarterly Engine Check
+- title: Quarterly Engine Check
   sections:
     - title: Initial Assessment
       tasks:

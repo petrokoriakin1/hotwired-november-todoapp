@@ -8,24 +8,7 @@ RSpec.describe ListCompositionService do
   let(:title) { 'Hull Maintenance' }
   let(:description) { 'Prepare the ship' }
   let(:template) { false }
-  let(:sections) do
-    [
-      {
-        title: 'Inspection',
-        tasks: [
-          { title: 'Initial Hull Survey', description: 'Complete a detailed survey of the hull to identify.' },
-          { title: 'Report Submission', description: 'Submit the survey report to the technical team for review.' }
-        ]
-      },
-      {
-        title: 'Cleaning',
-        tasks: [
-          { title: 'Hull Scraping', description: 'Remove barnacles and other sea life attached to the hull.' },
-          { title: 'Pressure Washing', description: 'Clean the hull with high-pressure water jets.' }
-        ]
-      }
-    ]
-  end
+  let(:sections) { [attributes_for(:section_data)] }
 
   context 'when title is not a string' do
     subject(:service) { described_class.new(title: nil) }
@@ -69,11 +52,11 @@ RSpec.describe ListCompositionService do
     end
 
     it 'creates section records' do
-      expect { service.call }.to change(Section, :count).from(0).to(2)
+      expect { service.call }.to change(Section, :count).from(0).to(1)
     end
 
     it 'creates task records' do
-      expect { service.call }.to change(Task, :count).from(0).to(4)
+      expect { service.call }.to change(Task, :count).from(0).to(2)
     end
   end
 end

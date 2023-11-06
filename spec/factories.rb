@@ -44,4 +44,16 @@ FactoryBot.define do
       list.sections << build(:section, :default_with_task, task_title: opts.task_title)
     end
   end
+
+  factory :section_data, class: Hash do
+    title { 'Inspection' }
+    tasks do
+      [
+        { title: 'Initial Hull Survey', description: 'Complete a detailed survey of the hull to identify.' },
+        { title: 'Report Submission', description: 'Submit the survey report to the technical team for review.' }
+      ]
+    end
+
+    initialize_with { attributes }
+  end
 end
