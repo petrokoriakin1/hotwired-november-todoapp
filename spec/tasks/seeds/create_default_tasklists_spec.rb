@@ -20,8 +20,18 @@ RSpec.describe Seeds::CreateDefaultTasklists do
   end
 
   describe '.load_seed_data!' do
+    subject(:seed_data_loading) { described_class.load_seed_data! }
+
     it 'creates some data with no failure' do
-      expect { described_class.load_seed_data! }.not_to raise_error
+      expect { seed_data_loading }.not_to raise_error
+    end
+
+    it 'creates tasklist' do
+      expect { seed_data_loading }.to change { List.tasklists.count }.from(0).to(1)
+    end
+
+    it 'creates templates' do
+      expect { seed_data_loading }.to change { List.templates.count }.from(0).to(2)
     end
   end
 end

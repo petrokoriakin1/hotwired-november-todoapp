@@ -59,4 +59,12 @@ RSpec.describe ListCompositionService do
       expect { service.call }.to change(Task, :count).from(0).to(2)
     end
   end
+
+  context 'with template data' do
+    let(:template) { true }
+
+    it 'creates list template record' do
+      expect { service.call }.to change { List.templates.count }.from(0).to(1)
+    end
+  end
 end
