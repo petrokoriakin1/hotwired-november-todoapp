@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   belongs_to :section
+  has_one :list, through: :section
 
   validates :title, presence: true
 
