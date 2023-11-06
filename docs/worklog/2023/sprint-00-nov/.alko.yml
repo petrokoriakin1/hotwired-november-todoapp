@@ -1,0 +1,56 @@
+sprint_total_slots: ---
+boundaries_indicators:
+  target: 49
+  real: ---
+categories:
+  code:
+    area: work
+    output:
+    details:
+      - day: 2023-05-00
+        output: 0
+  work:
+    area: work
+    output:
+    details:
+      - day: 2023-05-00
+        output: 0
+  plan:
+    area: plan
+    output:
+    details:
+      - day: 2023-05-00
+        output: 0
+  homework:
+    area: learn
+    output:
+    details:
+      - day: 2023-05-00
+        output: 0
+  growth:
+    area: learn
+    output:
+    details:
+      - day: 2023-05-00
+        output: 0
+sprintdays:
+  - date: 2023-05-00
+    indicators:
+      worktime:
+        start: ---
+        finish: ---
+      lunchbreak:
+        start: ---
+        finish: ---
+      boundaries:
+        target: 7
+        real: ---
+    slots:
+      - number: 0
+        title: "implement: !108317"
+        categories:
+          - code
+      - number: 0
+        title: "implement: !108317"
+        categories:
+          - code
