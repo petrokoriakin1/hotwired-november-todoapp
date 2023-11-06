@@ -4,6 +4,9 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+Dir[Rails.root.join('db/seeds/*.rb')].each do |seed|
+  require seed
+end
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'

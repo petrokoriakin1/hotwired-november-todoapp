@@ -15,12 +15,16 @@ FactoryBot.define do
 
   factory :section do
     sequence(:title) { |n| "Section ##{n}" }
-    transient do
-      task_title { nil }
-    end
     list
 
-    trait :with_task do
+    trait :default_with_task do
+      transient do
+        task_title { nil }
+      end
+
+      title { 'Default Section' }
+      default { true }
+
       after :build do |section, opts|
         section.tasks << build(:task, task_title: opts.task_title)
       end
@@ -29,14 +33,15 @@ FactoryBot.define do
 
   factory :list do
     sequence(:title) { |n| "List ##{n}" }
+  end
+
+  factory :well_defined_list, parent: :list do
     transient do
       task_title { nil }
     end
 
-    trait :well_defined do
-      after :build do |list, opts|
-        list.sections << build(:section, :with_task, task_title: opts.task_title)
-      end
+    after :build do |list, opts|
+      list.sections << build(:section, :default_with_task, task_title: opts.task_title)
     end
   end
 end

@@ -1,0 +1,47 @@
+- name: Annual Dry-Dock Checklist
+  sections:
+    - title: Pre-Dry-Dock Planning
+      tasks:
+        - title: Inventory Check
+          description: Ensure all necessary materials and tools are available.
+        - title: Staff Assignment
+          description: Assign staff to specific dry-dock tasks.
+        - title: Schedule Dry-Dock Timeline
+          description: Create a detailed timeline for the dry-dock process.
+    - title: Docking and Undocking
+      tasks:
+        - title: Tug Assistance Coordination
+          description: Coordinate with the tug team for assistance during docking and undocking.
+        - title: Docking Maneuvers Plan
+          description: Plan the maneuvers for safe and efficient docking of the ship.
+        - title: Undocking Plan
+          description: Create a detailed plan for undocking post-maintenance.
+    - title: Safety Procedures
+      tasks:
+        - title: Safety Gear Check
+          description: Check all safety gear and equipment to ensure they are in good condition.
+        - title: Emergency Protocol Review
+          description: Review emergency protocols with the entire dry-dock team.
+
+- name: Quarterly Engine Check
+  sections:
+    - title: Initial Assessment
+      tasks:
+        - title: Engine Performance Log Review
+          description: Review engine logs to assess performance and identify any irregularities.
+        - title: Fluids Quality Check
+          description: Check the quality of engine fluids and replace if necessary.
+    - title: Maintenance Tasks
+      tasks:
+        - title: Filter Replacement
+          description: Replace all filters to ensure optimal engine performance.
+        - title: Oil Change
+          description: Drain old engine oil, replace filters, and refill with new oil.
+        - title: Cooling System Inspection
+          description: Inspect the cooling system for leaks and ensure coolant is at the correct level.
+    - title: Final Review
+      tasks:
+        - title: Engine Test Run
+          description: Run the engine to ensure it is operating smoothly after maintenance.
+        - title: Maintenance Log Update
+          description: Update the maintenance log with all tasks completed during the check.

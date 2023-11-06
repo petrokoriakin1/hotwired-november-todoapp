@@ -25,7 +25,7 @@ class TasksController < ApplicationController
       if @task.save
         format.html { redirect_to tasks_url, notice: I18n.t(:task_created) }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to tasks_url, alert: @task.errors.full_messages }
       end
     end
   end
@@ -59,6 +59,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:description)
+    params.require(:task).permit(:title)
   end
 end
