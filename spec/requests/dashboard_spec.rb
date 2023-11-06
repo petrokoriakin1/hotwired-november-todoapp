@@ -13,6 +13,7 @@ RSpec.describe 'TaskList' do
 
         expect(response).to have_http_status(:success)
         expect(response.body).to include('Hull Maintenance')
+        expect(response.body).to include('the upcoming year with maintenance')
       end
     end
   end
