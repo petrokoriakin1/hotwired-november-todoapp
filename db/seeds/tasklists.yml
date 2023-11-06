@@ -1,0 +1,27 @@
+- title: Hull Maintenance
+  description: Prepare the ship's hull for the upcoming year with maintenance and painting.
+  sections:
+    - title: Inspection
+      tasks:
+        - title: Initial Hull Survey
+          description: Complete a detailed survey of the hull to identify areas needing repair.
+        - title: Report Submission
+          description: Submit the survey report to the technical team for review.
+    - title: Cleaning
+      tasks:
+        - title: Hull Scraping
+          description: Remove barnacles and other sea life attached to the hull.
+        - title: Pressure Washing
+          description: Clean the hull with high-pressure water jets.
+    - title: Repair
+      tasks:
+        - title: Patch Welding
+          description: Weld patches on identified weak spots post-inspection.
+        - title: Corrosion Treatment
+          description: Apply anti-corrosion treatments to affected areas.
+    - title: Painting
+      tasks:
+        - title: Primer Application
+          description: Coat the hull with rust-inhibiting primer.
+        - title: Paint Application
+          description: Apply the final coats of marine paint.

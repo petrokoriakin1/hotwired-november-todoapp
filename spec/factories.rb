@@ -1,0 +1,47 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :task do
+    sequence(:title) { |n| "Task ##{n}" }
+    transient do
+      task_title { 'Task Title' }
+    end
+    section
+
+    after :build do |task, opts|
+      task.title = opts.task_title if opts.task_title
+    end
+  end
+
+  factory :section do
+    sequence(:title) { |n| "Section ##{n}" }
+    list
+
+    trait :default_with_task do
+      transient do
+        task_title { nil }
+      end
+
+      title { 'Default Section' }
+      default { true }
+
+      after :build do |section, opts|
+        section.tasks << build(:task, task_title: opts.task_title)
+      end
+    end
+  end
+
+  factory :list do
+    sequence(:title) { |n| "List ##{n}" }
+  end
+
+  factory :well_defined_list, parent: :list do
+    transient do
+      task_title { nil }
+    end
+
+    after :build do |list, opts|
+      list.sections << build(:section, :default_with_task, task_title: opts.task_title)
+    end
+  end
+end
