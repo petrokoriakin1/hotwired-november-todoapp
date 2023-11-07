@@ -15,6 +15,14 @@ class TemplateApplicationService
   attr_accessor :template
 
   def apply_template!
-    List.create!(title: 'Some', description: 'Some', template: false)
+    list = List.create!(title: template.title, description: template.description, template: false)
+    template.sections.each do |section|
+      section = Section.create!(list:, title: section.title, default: section.default)
+      section.tasks do |task|
+        Task.create!(section:, title: task.title, description: task.description, completed: false)
+      end
+    end
+
+    list
   end
 end

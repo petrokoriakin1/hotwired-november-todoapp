@@ -12,4 +12,8 @@ RSpec.describe TemplateApplicationService do
   it 'creates a list' do
     expect { service_call }.to change { List.tasklists.count }.from(1).to(2)
   end
+
+  it 'returns the list' do
+    expect(service_call).to be_a(List)
+  end
 end

@@ -15,6 +15,14 @@ class ListPromotionService
   attr_accessor :tasklist
 
   def promote_list!
-    List.create!(title: 'Some', description: 'Some', template: true)
+    list = List.create!(title: tasklist.title, description: tasklist.description, template: true)
+    tasklist.sections.each do |section|
+      section = Section.create!(list:, title: section.title, default: section.default)
+      section.tasks do |task|
+        Task.create!(section:, title: task.title, description: task.description, completed: false)
+      end
+    end
+
+    list
   end
 end
