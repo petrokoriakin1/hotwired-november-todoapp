@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe ListPromotionService do
-  subject(:service_call) { described_class.new(tasklist:) }
+  subject(:service_call) { described_class.new(tasklist:).call }
 
-  let(template) { List.tasklists.last }
+  let(:tasklist) { List.tasklists.last }
 
   before { Seeds::CreateDefaultTasklists.load_seed_data! }
 

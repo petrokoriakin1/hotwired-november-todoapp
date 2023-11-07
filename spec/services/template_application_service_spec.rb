@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe TemplateApplicationService do
-  subject(:service_call) { described_class.new(template:) }
+  subject(:service_call) { described_class.new(template:).call }
 
-  let(template) { List.templates.last }
+  let(:template) { List.templates.last }
 
   before { Seeds::CreateDefaultTasklists.load_seed_data! }
 
