@@ -15,6 +15,7 @@ FactoryBot.define do
 
   factory :section do
     sequence(:title) { |n| "Section ##{n}" }
+    default { true }
     list
 
     trait :default_with_task do
@@ -23,7 +24,6 @@ FactoryBot.define do
       end
 
       title { 'Default Section' }
-      default { true }
 
       after :build do |section, opts|
         section.tasks << build(:task, task_title: opts.task_title)
@@ -33,6 +33,10 @@ FactoryBot.define do
 
   factory :list do
     sequence(:title) { |n| "List ##{n}" }
+
+    trait :with_default_section do
+      default_section factory: %i[section]
+    end
   end
 
   factory :well_defined_list, parent: :list do

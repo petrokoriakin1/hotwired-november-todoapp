@@ -22,4 +22,10 @@ RSpec.describe Task do
       end
     end
   end
+
+  describe '#list' do
+    it 'returns section list' do
+      expect(task.list).to eq(task.section.list)
+    end
+  end
 end

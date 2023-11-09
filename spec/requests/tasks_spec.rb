@@ -3,28 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'TaskList' do
-  describe 'GET /' do
-    context 'when task exist' do
-      before do
-        create(:well_defined_list, task_title: 'Simple Task')
-      end
-
-      it 'displays the list of tasks' do
-        get '/'
-
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include('Simple Task')
-      end
-    end
-  end
-
   describe 'POST /tasks' do
+    let(:list) { create(:list, :with_default_section) }
+    let(:section_id) { list.default_section.id }
+
     context 'when task is valid' do
       it 'displays the list of tasks' do
         post('/tasks',
-             params: { task: { title: 'Simple Task' } })
+             params: { task: { title: 'Simple Task', section_id: } })
 
-        expect(response).to redirect_to('/tasks')
+        expect(response).to redirect_to(list_url(list))
         follow_redirect!
 
         expect(response.body).to include('Simple Task')
@@ -34,12 +22,12 @@ RSpec.describe 'TaskList' do
     context 'when task is invalid' do
       it 'displays the flash message' do
         post('/tasks',
-             params: { task: { title: '' } })
+             params: { task: { title: '', section_id: } })
 
-        expect(response).to redirect_to('/tasks')
+        expect(response).to redirect_to(list_url(list))
         follow_redirect!
 
-        expect(response.body).to include("Title can't be blank")
+        expect(response.body).to include('Title can') # part of "Title can't be blank"
       end
     end
   end

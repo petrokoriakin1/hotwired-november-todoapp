@@ -18,9 +18,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to list_url(@task.list), notice: I18n.t(:task_created) }
+        format.html { redirect_to list_route(@task), notice: I18n.t(:task_created) }
       else
-        format.html { redirect_to list_url(@task.list), alert: @task.errors.full_messages }
+        format.html { redirect_to list_route(@task), alert: @task.errors.full_messages }
       end
     end
   end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to list_url(@task.list), notice: I18n.t(:task_updated) }
+        format.html { redirect_to list_route(@task), notice: I18n.t(:task_updated) }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -48,10 +48,14 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to list_url(@task.list), notice: I18n.t(:task_deleted)
+    redirect_to list_route(@task), notice: I18n.t(:task_deleted)
   end
 
   private
+
+  def list_route(task)
+    list_url(task.list)
+  end
 
   def task_params
     params.require(:task).permit(:title, :description, :section_id)
