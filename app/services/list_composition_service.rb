@@ -28,6 +28,7 @@ class ListCompositionService
     return default_list if sections.empty?
 
     list = List.create!(title:, description:, template:)
+    create_default_section_for!(list)
     sections.each do |section_data|
       title, tasks = section_data.values_at(:title, :tasks)
       section = Section.create!(list:, title:)
@@ -37,9 +38,13 @@ class ListCompositionService
     list
   end
 
+  def create_default_section_for!(list)
+    Section.create!(list:, title: 'Default', default: true)
+  end
+
   def default_list
     list = List.create!(title:, description:)
-    Section.create!(list:, title: 'Default', default: true)
+    create_default_section_for!(list)
 
     list
   end
@@ -47,7 +52,8 @@ class ListCompositionService
   def compose_tasks!(section, tasks_data)
     tasks_data.each do |task_data|
       title, description = task_data.values_at(:title, :description)
-      Task.create!(section:, title:, description:)
+      completed = task_data.fetch(:completed, false)
+      Task.create!(section:, title:, description:, completed:)
     end
   end
 end
