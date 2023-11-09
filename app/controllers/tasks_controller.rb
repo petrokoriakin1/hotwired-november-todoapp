@@ -54,7 +54,7 @@ class TasksController < ApplicationController
   private
 
   def list_route(task)
-    list_url(task.section.list)
+    list_url(task.list)
   end
 
   def task_params

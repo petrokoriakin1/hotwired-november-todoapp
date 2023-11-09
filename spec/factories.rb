@@ -35,7 +35,7 @@ FactoryBot.define do
     sequence(:title) { |n| "List ##{n}" }
 
     trait :with_default_section do
-      association :default_section, factory: :section
+      default_section factory: %i[section]
     end
   end
 

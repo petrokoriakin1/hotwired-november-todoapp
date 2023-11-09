@@ -8,11 +8,9 @@
 
 <div id="tasks" data-controller="tasks">
   <div class="px-5">
+    <%= render "section", section: @list.default_section %>
     <% @list.sections.each do |section| %>
       <%= render "section", section: section %>
-      <div class="mt-4">
-        <%= render "tasks/form", task: Task.new(section:) %>
-      </div>
     <% end %>
   </div>
 </div>
