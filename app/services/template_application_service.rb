@@ -2,7 +2,7 @@
 
 # Forms list from given attributes
 class TemplateApplicationService
-  def initialize(template:)
+  def initialize(template:, title: nil, description: nil)
     @template = template
   end
 
