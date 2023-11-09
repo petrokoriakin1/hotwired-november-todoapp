@@ -21,7 +21,7 @@ RSpec.describe TemplateApplicationService do
         expect(service_call.title).to eq(template.title)
       end
 
-      it 'contains the title from template' do
+      it 'contains the description from template' do
         expect(service_call.description).to eq(template.description)
       end
     end

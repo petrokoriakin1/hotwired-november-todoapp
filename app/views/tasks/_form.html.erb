@@ -1,5 +1,6 @@
 <%= form_with(model: task, class: "mb-7") do |form| %>
   <div class="mb-4">
+    <%= form.hidden_field :section_id %>
     <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :title,
                         placeholder: "Task title",

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-# Forms list from given attributes
+# Forms list from given template and attributes
 class TemplateApplicationService
   def initialize(template:, title: nil, description: nil)
     @template = template
+    @title = title
+    @description = description
   end
 
   def call
@@ -12,10 +14,10 @@ class TemplateApplicationService
 
   private
 
-  attr_accessor :template
+  attr_accessor :template, :title, :description
 
   def apply_template!
-    list = List.create!(title: template.title, description: template.description, template: false)
+    list = List.create!(title: current_title, description: current_description, template: false)
     template.sections.each do |section|
       section = Section.create!(list:, title: section.title, default: section.default)
       section.tasks do |task|
@@ -24,5 +26,13 @@ class TemplateApplicationService
     end
 
     list
+  end
+
+  def current_title
+    title || template.title
+  end
+
+  def current_description
+    description || template.description
   end
 end

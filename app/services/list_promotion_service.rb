@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Forms list from given attributes
+# Forms template from given list and attributes
 class ListPromotionService
   def initialize(tasklist:)
     @tasklist = tasklist
