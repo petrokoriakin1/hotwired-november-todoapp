@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List App</title>
+  <!-- Insert Tailwind CSS CDN here -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // If needed, you can add Tailwind CSS configuration here
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            darkBg: '#121212',
+            darkCard: '#1F1F1F',
+            darkAccent: '#2A2A2A',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-darkBg text-white">
+
+  <!-- Container for centering the content -->
+  <div class="container mx-auto p-4">
+
+    <!-- Dashboard -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
+      <!-- List of todo lists -->
+      <div class="grid gap-4">
+        <!-- Individual todo list card -->
+        <div class="bg-darkCard p-4 rounded-lg">
+          <h2 class="text-xl font-semibold mb-2">Todo List Title 1</h2>
+          <p>Description of the todo list...</p>
+          <!-- Buttons for actions -->
+          <button class="mt-3 bg-darkAccent text-white py-2 px-4 rounded">Edit</button>
+          <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded">Delete</button>
+        </div>
+        <div class="bg-darkCard p-4 rounded-lg">
+          <h2 class="text-xl font-semibold mb-2">Todo List Title 2</h2>
+          <p>Description of the todo list...</p>
+          <button class="mt-3 bg-darkAccent text-white py-2 px-4 rounded">Edit</button>
+          <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded">Delete</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

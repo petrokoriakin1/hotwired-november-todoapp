@@ -1,19 +1,82 @@
-<h1 class="text-4xl font-bold text-gray-900 mb-8">Dashboard</h1>
-<h2 class="text-2xl font-semibold text-gray-700 mb-4">Task Lists</h2>
-<ul class="list-inside list-disc mb-6">
+<h1 class="text-4xl font-bold mb-8">Dashboard</h1>
+<div class="grid gap-4">
   <% @tasklists.each do |tasklist| %>
-    <li class="mb-2">
-      <strong><%= link_to tasklist.title, list_path(tasklist), class: "text-indigo-600 hover:text-indigo-800 transition-colors" %></strong>
-    </li>
-    <p><%= tasklist.description %></p>
+    <div class="bg-gray-800 p-4 rounded-lg">
+      <h2 class="text-xl hover:text-indigo-800 font-semibold mb-2"><%= link_to tasklist.title, list_path(tasklist) %></h2>
+      <p><%= tasklist.description %></p>
+      <button class="mt-3 bg-blue-600 text-white py-2 px-4 rounded">Edit</button>
+      <button class="mt-3 bg-green-600 text-white py-2 px-4 rounded">Make Template</button>
+      <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
+    </div>
   <% end %>
-</ul>
-<h2 class="text-2xl font-semibold text-gray-700 mb-4">Templates</h2>
-<ul class="list-inside list-disc mb-6">
-  <% @templates.each do |template| %>
-    <li class="mb-2">
-      <%= template.title %>
-    </li>
-    <p><%= template.description %></p>
-  <% end %>
-</ul>
+</div>
+<div class="mt-8">
+  <h2 class="text-2xl font-bold mb-4">Available Templates</h2>
+  <div class="grid gap-4">
+    <% # some turbo streams go here shortly. Stay tunned %>
+    <% @templates.each do |template| %>
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">
+          <%= template.title %>
+        </h3>
+        <p><%= template.description %></p>
+        <button class="mt-3 bg-green-600 text-white py-2 px-4 rounded">Use Template</button>
+        <button class="mt-3 bg-blue-600 text-white py-2 px-4 rounded">Edit</button>
+        <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
+        <!-- Sample data from the template -->
+        <div class="bg-darkCard p-4 rounded-lg" id="sampleDataContainer">
+          <h3 class="text-lg font-semibold mb-2">Sample Data</h3>
+          <!-- Display task sections from the sample template data -->
+          <div class="mb-4 hidden" id="sampleDataContent">
+            <h4 class="text-xl font-bold mb-2">Task Sections</h4>
+            <!-- Task Section 1 -->
+            <div class="bg-darkCard p-4 rounded-lg">
+              <h5 class="text-lg font-semibold mb-2">Initial Assessment</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Engine Performance Log Review:</strong> Review engine logs to assess performance and identify any irregularities.</li>
+                <li><strong>Fluids Quality Check:</strong> Check the quality of engine fluids and replace if necessary.</li>
+              </ul>
+            </div>
+            <!-- Task Section 2 -->
+            <div class="bg-darkCard p-4 rounded-lg mt-4">
+              <h5 class="text-lg font-semibold mb-2">Maintenance Tasks</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Filter Replacement:</strong> Replace all filters to ensure optimal engine performance.</li>
+                <li><strong>Oil Change:</strong> Drain old engine oil, replace filters, and refill with new oil.</li>
+                <li><strong>Cooling System Inspection:</strong> Inspect the cooling system for leaks and ensure coolant is at the correct level.</li>
+              </ul>
+            </div>
+            <!-- Task Section 3 -->
+            <div class="bg-darkCard p-4 rounded-lg mt-4">
+              <h5 class="text-lg font-semibold mb-2">Final Review</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Engine Test Run:</strong> Run the engine to ensure it is operating smoothly after maintenance.</li>
+                <li><strong>Maintenance Log Update:</strong> Update the maintenance log with all tasks completed during the check.</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Show More/Show Less toggle -->
+          <button onclick="toggleSampleData()" class="text-blue-600" id="showMoreButton">Show More</button>
+          <!-- JavaScript for Show More/Show Less toggle -->
+          <script>
+            function toggleSampleData() {
+              var content = document.getElementById('sampleDataContent');
+              var button = document.getElementById('showMoreButton');
+      
+              if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                button.innerText = 'Show Less';
+              } else {
+                content.classList.add('hidden');
+                button.innerText = 'Show More';
+              }
+            }
+          </script>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
