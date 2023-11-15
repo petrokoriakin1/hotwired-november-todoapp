@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List App</title>
+  <!-- Insert Tailwind CSS CDN here -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Container for centering the content -->
+  <div class="container mx-auto p-4">
+
+    <!-- Create Todo List from Template -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold mb-4">Create Todo List from Template</h2>
+      <form class="bg-darkCard p-4 rounded-lg">
+        <!-- Editable title and description -->
+        <label for="title" class="block mb-2">Title</label>
+        <input type="text" id="title" class="w-full mb-4 p-2 bg-darkAccent rounded" placeholder="Enter title" value="Quarterly Engine Check">
+
+        <label for="description" class="block mb-2">Description</label>
+        <textarea id="description" class="w-full mb-4 p-2 bg-darkAccent rounded" placeholder="Enter description">Quarterly engine check for optimal performance and maintenance.</textarea>
+
+        <!-- Template select box -->
+        <label for="template" class="block mb-2">Select Template</label>
+        <select id="template" class="w-full mb-4 p-2 bg-darkAccent rounded">
+          <option value="1">Template 1</option>
+          <option value="2">Template 2</option>
+        </select>
+
+        <!-- Controls (Nevermind and Create) -->
+        <div class="flex items-center mb-4">
+          <a href="#" class="text-blue-600 mr-4" onclick="nevermindClick()">Nevermind</a>
+          <button type="button" onclick="createClick()" class="bg-blue-600 text-white py-2 px-4 rounded">Create</button>
+        </div>
+
+        <!-- Sample data from the template -->
+        <div class="bg-darkCard p-4 rounded-lg" id="sampleDataContainer">
+          <h3 class="text-lg font-semibold mb-2">Sample Data</h3>
+          <!-- Display task sections from the sample template data -->
+          <div class="mb-4 hidden" id="sampleDataContent">
+            <h4 class="text-xl font-bold mb-2">Task Sections</h4>
+            <!-- Task Section 1 -->
+            <div class="bg-darkCard p-4 rounded-lg">
+              <h5 class="text-lg font-semibold mb-2">Initial Assessment</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Engine Performance Log Review:</strong> Review engine logs to assess performance and identify any irregularities.</li>
+                <li><strong>Fluids Quality Check:</strong> Check the quality of engine fluids and replace if necessary.</li>
+              </ul>
+            </div>
+            <!-- Task Section 2 -->
+            <div class="bg-darkCard p-4 rounded-lg mt-4">
+              <h5 class="text-lg font-semibold mb-2">Maintenance Tasks</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Filter Replacement:</strong> Replace all filters to ensure optimal engine performance.</li>
+                <li><strong>Oil Change:</strong> Drain old engine oil, replace filters, and refill with new oil.</li>
+                <li><strong>Cooling System Inspection:</strong> Inspect the cooling system for leaks and ensure coolant is at the correct level.</li>
+              </ul>
+            </div>
+            <!-- Task Section 3 -->
+            <div class="bg-darkCard p-4 rounded-lg mt-4">
+              <h5 class="text-lg font-semibold mb-2">Final Review</h5>
+              <!-- Display tasks -->
+              <ul>
+                <li><strong>Engine Test Run:</strong> Run the engine to ensure it is operating smoothly after maintenance.</li>
+                <li><strong>Maintenance Log Update:</strong> Update the maintenance log with all tasks completed during the check.</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Show More/Show Less toggle -->
+          <button onclick="toggleSampleData()" class="text-blue-600" id="showMoreButton">Show More</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- JavaScript for Show More/Show Less toggle -->
+    <script>
+      function toggleSampleData() {
+        var content = document.getElementById('sampleDataContent');
+        var button = document.getElementById('showMoreButton');
+
+        if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+          button.innerText = 'Show Less';
+        } else {
+          content.classList.add('hidden');
+          button.innerText = 'Show More';
+        }
+      }
+
+      function nevermindClick() {
+        // Implement your "Nevermind" logic here
+        alert('Nevermind clicked');
+      }
+
+      function createClick() {
+        // Implement your "Create" logic here
+        alert('Create clicked');
+      }
+    </script>
+
+  </div>
+
+</body>
+</html>
