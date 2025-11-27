@@ -2,10 +2,12 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
-    './public/*.html',
-    './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    "./app/views/**/*.html.erb",
+    "./app/helpers/**/*.rb",
+    "./app/assets/stylesheets/**/*.css",
+    "./app/javascript/**/*.js",
+    "./app/components/**/*.{rb,erb}",  // якщо використовуєте ViewComponents
+    "./app/**/*.html.erb",             // це найнадійніше — ловить усе
   ],
   theme: {
     extend: {
