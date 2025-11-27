@@ -1,5 +1,22 @@
 #!/bin/bash -e
 
+# Simple runtime checks to provide clearer errors if required secrets are missing.
+# In production we require either SECRET_KEY_BASE (env) or Rails encrypted
+# credentials + a master key (RAILS_MASTER_KEY or config/credentials/production.key).
+if [ "${RAILS_ENV:-development}" = "production" ]; then
+  if [ -z "${SECRET_KEY_BASE}" ] && [ -z "${RAILS_MASTER_KEY}" ] && [ ! -f "./config/credentials/production.key" ]; then
+    echo "ERROR: Missing production secret for Rails. One of the following must be provided:" >&2
+    echo "  - set environment variable SECRET_KEY_BASE" >&2
+    echo "  - set environment variable RAILS_MASTER_KEY (for credentials)" >&2
+    echo "  - include ./config/credentials/production.key in the image (not recommended)" >&2
+    echo "" >&2
+    echo "Generate a secret with: ./bin/rails secret" >&2
+    echo "Or create production credentials: ./bin/rails credentials:edit --environment production" >&2
+    echo "Then set the resulting RAILS_MASTER_KEY or SECRET_KEY_BASE in your deployment environment." >&2
+    exit 1
+  fi
+fi
+
 # If running the rails server then create or migrate existing database
 # Check the first two positional args so additional flags (eg -b/-p) won't break detection
 if [ "${1}" = "./bin/rails" ] && [ "${2}" = "server" ]; then
