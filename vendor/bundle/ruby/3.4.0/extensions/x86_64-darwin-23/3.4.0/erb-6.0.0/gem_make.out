@@ -1,0 +1,19 @@
+current directory: /Users/petro/joy/gh/hotwired-november-todoapp/vendor/bundle/ruby/3.4.0/gems/erb-6.0.0/ext/erb/escape
+/Users/petro/.asdf/installs/ruby/3.4.1/bin/ruby extconf.rb
+checking for rb_ext_ractor_safe() in ruby.h... yes
+creating Makefile
+
+current directory: /Users/petro/joy/gh/hotwired-november-todoapp/vendor/bundle/ruby/3.4.0/gems/erb-6.0.0/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251127-43824-tfmipz sitelibdir\=./.gem.20251127-43824-tfmipz clean
+
+current directory: /Users/petro/joy/gh/hotwired-november-todoapp/vendor/bundle/ruby/3.4.0/gems/erb-6.0.0/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251127-43824-tfmipz sitelibdir\=./.gem.20251127-43824-tfmipz
+compiling escape.c
+linking shared-object erb/escape.bundle
+
+current directory: /Users/petro/joy/gh/hotwired-november-todoapp/vendor/bundle/ruby/3.4.0/gems/erb-6.0.0/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251127-43824-tfmipz sitelibdir\=./.gem.20251127-43824-tfmipz install
+/usr/local/bin/ginstall -c -m 0755 escape.bundle ./.gem.20251127-43824-tfmipz/erb
+
+current directory: /Users/petro/joy/gh/hotwired-november-todoapp/vendor/bundle/ruby/3.4.0/gems/erb-6.0.0/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251127-43824-tfmipz sitelibdir\=./.gem.20251127-43824-tfmipz clean

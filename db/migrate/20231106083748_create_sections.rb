@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class CreateSections < ActiveRecord::Migration[7.1]
+  # Superseded by `20231101000000_squashed_schema.rb`.
   def change
-    create_table :sections, id: :uuid do |t|
-      t.string :title
-      t.references :list, null: false, foreign_key: true, type: :string, limit: 36
-
-      t.timestamps
-    end
+    # no-op
   end
 end
