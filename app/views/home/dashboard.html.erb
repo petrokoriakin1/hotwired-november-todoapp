@@ -1,98 +1,88 @@
 <h1 class="text-4xl font-bold mb-8">Dashboard</h1>
 
-<% # alerts. we want to be user frienly. Yes. I know that inline scripting is awfull. I'm going to remove this shortly %>
+<%# Inline helpers for small demo interactions. We'll move these into proper JS later. %>
 <script>
-function toggleSampleData() {
-  var content = document.getElementById('sampleDataContent');
-  var button = document.getElementById('showMoreButton');
+  function toggleSampleData(id, buttonId) {
+    var content = document.getElementById(id);
+    var button = document.getElementById(buttonId);
 
-  if (content.classList.contains('hidden')) {
-    content.classList.remove('hidden');
-    button.innerText = 'Show Less';
-  } else {
-    content.classList.add('hidden');
-    button.innerText = 'Show More';
-  }        
-}
+    if (!content || !button) return;
 
-function makeTemplateClick() {
-  alert('makeTemplate clicked. this feature will be here soon');
-}
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      button.innerText = 'Show Less';
+    } else {
+      content.classList.add('hidden');
+      button.innerText = 'Show More';
+    }
+  }
 
-
-function useTemplateClick() {
-  alert('useTemplate clicked. this feature will be here soon');
-}
-
-function editClick() {
-  alert('edit clicked. this feature will be here soon');
-}
+  function makeTemplateClick() { alert('Make template — coming soon'); }
+  function useTemplateClick() { alert('Use template — coming soon'); }
+  function editClick() { alert('Edit — coming soon'); }
 </script>
 
 <div class="grid gap-4">
   <% @tasklists.each do |tasklist| %>
     <div class="bg-gray-800 p-4 rounded-lg">
       <h2 class="text-xl hover:text-indigo-800 font-semibold mb-2"><%= link_to tasklist.title, list_path(tasklist) %></h2>
-      <p><%= tasklist.description %></p>
-      <button class="mt-3 bg-blue-600 text-white py-2 px-4 rounded" onclick="editClick()">Edit</button>
-      <button class="mt-3 bg-green-600 text-white py-2 px-4 rounded" onclick="makeTemplateClick()">Make Template</button>
-      <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
+      <p class="text-sm text-gray-400"><%= tasklist.description %></p>
+      <div class="mt-3 space-x-2">
+        <button class="bg-blue-600 text-white py-2 px-4 rounded" onclick="editClick()">Edit</button>
+        <button class="bg-green-600 text-white py-2 px-4 rounded" onclick="makeTemplateClick()">Make Template</button>
+        <button class="bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
+      </div>
     </div>
   <% end %>
 </div>
+
 <div class="mt-8">
   <h2 class="text-2xl font-bold mb-4">Available Templates</h2>
   <div class="grid gap-4">
-    <% # some turbo streams go here shortly. Stay tunned %>
-    <% @templates.each do |template| %>
+    <%# A richer card view combined with a compact list for quick scanning. %>
+    <% @templates.each_with_index do |template, idx| %>
       <div class="bg-gray-800 p-4 rounded-lg">
-        <h3 class="text-xl font-semibold mb-2">
-          <%= template.title %>
-        </h3>
-        <p><%= template.description %></p>
-        <button class="mt-3 bg-green-600 text-white py-2 px-4 rounded" onclick="useTemplateClick()">Use Template</button>
-        <button class="mt-3 bg-blue-600 text-white py-2 px-4 rounded" onclick="editClick()">Edit</button>
-        <button class="mt-3 bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
-        <!-- Sample data from the template -->
-        <div class="bg-darkCard p-4 rounded-lg" id="sampleDataContainer">
-          <h3 class="text-lg font-semibold mb-2">Sample Data</h3>
-          <!-- Display task sections from the sample template data -->
-          <div class="mb-4 hidden" id="sampleDataContent">
-            <h4 class="text-xl font-bold mb-2">Task Sections</h4>
-            <!-- Task Section 1 -->
-            <div class="bg-darkCard p-4 rounded-lg">
-              <h5 class="text-lg font-semibold mb-2">Initial Assessment</h5>
-              <!-- Display tasks -->
-              <ul>
-                <li><strong>Engine Performance Log Review:</strong> Review engine logs to assess performance and identify any irregularities.</li>
-                <li><strong>Fluids Quality Check:</strong> Check the quality of engine fluids and replace if necessary.</li>
-              </ul>
-            </div>
-            <!-- Task Section 2 -->
-            <div class="bg-darkCard p-4 rounded-lg mt-4">
-              <h5 class="text-lg font-semibold mb-2">Maintenance Tasks</h5>
-              <!-- Display tasks -->
-              <ul>
-                <li><strong>Filter Replacement:</strong> Replace all filters to ensure optimal engine performance.</li>
-                <li><strong>Oil Change:</strong> Drain old engine oil, replace filters, and refill with new oil.</li>
-                <li><strong>Cooling System Inspection:</strong> Inspect the cooling system for leaks and ensure coolant is at the correct level.</li>
-              </ul>
-            </div>
-            <!-- Task Section 3 -->
-            <div class="bg-darkCard p-4 rounded-lg mt-4">
-              <h5 class="text-lg font-semibold mb-2">Final Review</h5>
-              <!-- Display tasks -->
-              <ul>
-                <li><strong>Engine Test Run:</strong> Run the engine to ensure it is operating smoothly after maintenance.</li>
-                <li><strong>Maintenance Log Update:</strong> Update the maintenance log with all tasks completed during the check.</li>
-              </ul>
-            </div>
+        <h3 class="text-xl font-semibold mb-2"><%= template.title %></h3>
+        <p class="text-sm text-gray-400 mb-3"><%= template.description %></p>
+        <div class="mt-2 space-x-2">
+          <button class="bg-green-600 text-white py-2 px-4 rounded" onclick="useTemplateClick()">Use Template</button>
+          <button class="bg-blue-600 text-white py-2 px-4 rounded" onclick="editClick()">Edit</button>
+          <button class="bg-red-600 text-white py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled>Delete [admin only]</button>
+        </div>
+
+        <%# Sample data preview — hidden by default and toggleable per-template %>
+        <div class="bg-darkCard p-4 rounded-lg mt-4">
+          <h4 class="text-lg font-semibold mb-2">Sample Data</h4>
+          <div id="sampleDataContent-<%= idx %>" class="mb-4 hidden">
+            <% if template.respond_to?(:sample_sections) && template.sample_sections.present? %>
+              <% template.sample_sections.each do |section| %>
+                <div class="bg-darkCard p-4 rounded-lg mb-4">
+                  <h5 class="text-lg font-semibold mb-2"><%= section.title %></h5>
+                  <ul class="list-disc list-inside">
+                    <% section.tasks.each do |task| %>
+                      <li><%= task.title %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-sm text-gray-400">No sample data available for this template.</p>
+            <% end %>
           </div>
-          <!-- Show More/Show Less toggle -->
-          <button onclick="toggleSampleData()" class="text-blue-600" id="showMoreButton">Show More</button>
-          <!-- JavaScript for Show More/Show Less toggle -->
+          <button id="showMoreButton-<%= idx %>" onclick="toggleSampleData('sampleDataContent-<%= idx %>','showMoreButton-<%= idx %>')" class="text-blue-600 mt-2">Show More</button>
         </div>
       </div>
     <% end %>
+
+    <div class="col-span-full">
+      <h3 class="text-lg font-semibold mt-6 mb-2">Quick Template List</h3>
+      <ul class="list-inside list-disc mb-6">
+        <% @templates.each do |template| %>
+          <li class="mb-2">
+            <strong><%= template.title %></strong> — <span class="text-sm text-gray-400"><%= template.description %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
