@@ -10,31 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_01_22_060350) do
-# Could not dump table "activities" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
-
-
-# Could not dump table "activity_memberships" because of following StandardError
-#   Unknown type '' for column 'id'
-
-
-# Could not dump table "flipper_features" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
-
-
-# Could not dump table "flipper_gates" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
-
-
-# Could not dump table "group_memberships" because of following StandardError
-#   Unknown type '' for column 'id'
-
-
-# Could not dump table "groups" because of following StandardError
-#   Unknown type '' for column 'id'
-
-
+ActiveRecord::Schema[8.1].define(version: 2023_11_06_103321) do
   create_table "lists", id: { type: :string, limit: 36, default: -> { "uuid()" } }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -42,10 +18,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_01_22_060350) do
     t.string "title"
     t.datetime "updated_at", null: false
   end
-
-# Could not dump table "messages" because of following StandardError
-#   Unknown type '' for column 'id'
-
 
 # Could not dump table "sections" because of following StandardError
 #   Unknown type 'uuid' for column 'id'
@@ -61,25 +33,6 @@ ActiveRecord::Schema[8.1].define(version: 2024_01_22_060350) do
     t.index ["section_id"], name: "index_tasks_on_section_id"
   end
 
-# Could not dump table "teams" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
-
-
-# Could not dump table "timestamps" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
-
-
-# Could not dump table "users" because of following StandardError
-#   Unknown type '' for column 'id'
-
-
-  add_foreign_key "activity_memberships", "activities"
-  add_foreign_key "activity_memberships", "users"
-  add_foreign_key "group_memberships", "groups"
-  add_foreign_key "group_memberships", "users"
-  add_foreign_key "groups", "activities"
-  add_foreign_key "messages", "users"
   add_foreign_key "sections", "lists"
   add_foreign_key "tasks", "sections"
-  add_foreign_key "users", "teams"
 end
