@@ -1,6 +1,6 @@
 # fly.toml - Updated for 2025
 
-app = 'hotwired-november-todoapp'
+app = 'proud-field-6037'
 primary_region = 'waw'
 console_command = './bin/rails console'
 
