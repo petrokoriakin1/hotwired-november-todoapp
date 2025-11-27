@@ -4,7 +4,7 @@ class CreateSections < ActiveRecord::Migration[7.1]
   def change
     create_table :sections, id: :uuid do |t|
       t.string :title
-      t.references :list, null: false, foreign_key: true, type: :uuid
+      t.references :list, null: false, foreign_key: true, type: :string, limit: 36
 
       t.timestamps
     end

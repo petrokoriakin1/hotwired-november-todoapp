@@ -39,7 +39,7 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         format.html { redirect_to list_route(@task), notice: I18n.t(:task_updated) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end
@@ -58,6 +58,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :section_id)
+    params.expect(task: %i[title description section_id])
   end
 end

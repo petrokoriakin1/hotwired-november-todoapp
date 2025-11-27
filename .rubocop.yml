@@ -11,11 +11,12 @@ inherit_from: .rubocop_todo.yml
 #
 # See https://docs.rubocop.org/rubocop/configuration
 
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec_rails
 
 AllCops:
   NewCops: enable

@@ -10,38 +10,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_06_103321) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pgcrypto"
-  enable_extension "plpgsql"
+ActiveRecord::Schema[8.1].define(version: 2024_01_22_060350) do
+# Could not dump table "activities" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
 
-  create_table "lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title"
+
+# Could not dump table "activity_memberships" because of following StandardError
+#   Unknown type '' for column 'id'
+
+
+# Could not dump table "flipper_features" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
+# Could not dump table "flipper_gates" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
+# Could not dump table "group_memberships" because of following StandardError
+#   Unknown type '' for column 'id'
+
+
+# Could not dump table "groups" because of following StandardError
+#   Unknown type '' for column 'id'
+
+
+  create_table "lists", id: { type: :string, limit: 36, default: -> { "uuid()" } }, force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "description"
     t.boolean "template", default: false, null: false
-    t.datetime "created_at", null: false
+    t.string "title"
     t.datetime "updated_at", null: false
   end
 
-  create_table "sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title"
-    t.uuid "list_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "default", default: false, null: false
-    t.index ["list_id"], name: "index_sections_on_list_id"
-  end
+# Could not dump table "messages" because of following StandardError
+#   Unknown type '' for column 'id'
 
-  create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title"
-    t.string "description"
+
+# Could not dump table "sections" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
+  create_table "tasks", id: { type: :string, limit: 36, default: -> { "uuid()" } }, force: :cascade do |t|
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", null: false
+    t.string "description"
+    t.string "section_id", limit: 36, null: false
+    t.string "title"
     t.datetime "updated_at", null: false
-    t.uuid "section_id", null: false
     t.index ["section_id"], name: "index_tasks_on_section_id"
   end
 
+# Could not dump table "teams" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
+# Could not dump table "timestamps" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
+# Could not dump table "users" because of following StandardError
+#   Unknown type '' for column 'id'
+
+
+  add_foreign_key "activity_memberships", "activities"
+  add_foreign_key "activity_memberships", "users"
+  add_foreign_key "group_memberships", "groups"
+  add_foreign_key "group_memberships", "users"
+  add_foreign_key "groups", "activities"
+  add_foreign_key "messages", "users"
   add_foreign_key "sections", "lists"
   add_foreign_key "tasks", "sections"
+  add_foreign_key "users", "teams"
 end

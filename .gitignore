@@ -36,3 +36,6 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+hotwired_november_todoapp_development
+hotwired_november_todoapp_test

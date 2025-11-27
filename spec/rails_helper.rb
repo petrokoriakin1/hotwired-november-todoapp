@@ -4,7 +4,7 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
-Dir[Rails.root.join('db/seeds/*.rb')].each do |seed|
+Rails.root.glob('db/seeds/*.rb').each do |seed|
   require seed
 end
 # Prevent database truncation if the environment is production
