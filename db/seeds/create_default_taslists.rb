@@ -10,6 +10,8 @@ module Seeds
     end
 
     def call(lists_data:, templates_data:)
+      return if List.exists?
+
       lists_data.each do |data_item|
         generate_list!(data_item[:title], data_item[:description], data_item[:sections], false)
       end

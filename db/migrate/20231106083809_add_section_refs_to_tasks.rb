@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class AddSectionRefsToTasks < ActiveRecord::Migration[7.1]
+  # Superseded by `20231101000000_squashed_schema.rb`.
   def change
-    add_reference :tasks, :section, null: false, foreign_key: true, type: :uuid # rubocop:disable Rails/NotNullColumn
+    # no-op
   end
 end

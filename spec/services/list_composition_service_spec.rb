@@ -52,11 +52,19 @@ RSpec.describe ListCompositionService do
     end
 
     it 'creates section records' do
-      expect { service.call }.to change(Section, :count).from(0).to(1)
+      expect { service.call }.to change(Section, :count).from(0).to(2)
     end
 
     it 'creates task records' do
       expect { service.call }.to change(Task, :count).from(0).to(2)
+    end
+
+    it 'creates completed task records' do
+      expect { service.call }.to change { Task.where(completed: true).count }.from(0)
+    end
+
+    it 'creates default sections' do
+      expect { service.call }.to change { Section.where(default: true).count }.from(0).to(1)
     end
   end
 

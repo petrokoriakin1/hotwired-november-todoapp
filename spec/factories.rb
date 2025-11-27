@@ -53,8 +53,15 @@ FactoryBot.define do
     title { 'Inspection' }
     tasks do
       [
-        { title: 'Initial Hull Survey', description: 'Complete a detailed survey of the hull to identify.' },
-        { title: 'Report Submission', description: 'Submit the survey report to the technical team for review.' }
+        {
+          title: 'Initial Hull Survey',
+          description: 'Complete a detailed survey of the hull to identify.',
+          completed: true
+        },
+        {
+          title: 'Report Submission',
+          description: 'Submit the survey report to the technical team for review.'
+        }
       ]
     end
 

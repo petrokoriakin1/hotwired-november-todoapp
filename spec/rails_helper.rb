@@ -4,7 +4,7 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
-Dir[Rails.root.join('db/seeds/*.rb')].each do |seed|
+Rails.root.glob('db/seeds/*.rb').each do |seed|
   require seed
 end
 # Prevent database truncation if the environment is production
@@ -36,7 +36,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = Rails.root.join('spec/fixtures').to_s
+  config.fixture_path = Rails.root.join('spec/fixtures').to_s if config.respond_to?(:fixture_path=)
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

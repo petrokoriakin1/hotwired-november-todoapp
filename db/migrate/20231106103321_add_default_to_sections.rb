@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class AddDefaultToSections < ActiveRecord::Migration[7.1]
+  # Superseded by `20231101000000_squashed_schema.rb`.
   def change
-    add_column :sections, :default, :boolean, default: false, null: false
+    # no-op
   end
 end

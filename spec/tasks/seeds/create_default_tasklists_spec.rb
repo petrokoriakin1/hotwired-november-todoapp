@@ -19,6 +19,14 @@ RSpec.describe Seeds::CreateDefaultTasklists do
     expect { service.call(lists_data: data_sample, templates_data: data_sample) }.not_to raise_error
   end
 
+  context 'when some data is present' do
+    before { create(:list) }
+
+    it 'does nothing' do
+      expect { service.call(lists_data: data_sample, templates_data: data_sample) }.not_to(change(List, :count))
+    end
+  end
+
   describe '.load_seed_data!' do
     subject(:seed_data_loading) { described_class.load_seed_data! }
 
@@ -32,6 +40,14 @@ RSpec.describe Seeds::CreateDefaultTasklists do
 
     it 'creates templates' do
       expect { seed_data_loading }.to change { List.templates.count }.from(0).to(2)
+    end
+
+    it 'creates default sections' do
+      expect { seed_data_loading }.to change { Section.where(default: true).count }.from(0).to(3)
+    end
+
+    it 'creates some completed tasks' do
+      expect { seed_data_loading }.to change { Task.where(completed: true).count }.from(0).to(1)
     end
   end
 end

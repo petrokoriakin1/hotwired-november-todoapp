@@ -13,15 +13,17 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  extensions:
+    - <%= SqliteExtensions::UUID.to_path %>
 
 development:
   <<: *default
-  database: hotwired_november_todoapp_development
+  database: tmp/storage/hotwired_november_todoapp_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -55,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: hotwired_november_todoapp_test
+  database: tmp/storage/hotwired_november_todoapp_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: hotwired_november_todoapp_production
+  database: storage/hotwired_november_todoapp_production
   username: hotwired_november_todoapp
   password: <%= ENV["HOTWIRED_NOVEMBER_TODOAPP_DATABASE_PASSWORD"] %>

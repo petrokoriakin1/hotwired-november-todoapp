@@ -6,6 +6,10 @@
 
 # Ignore bundler config.
 /.bundle
+/vendor/bundle
+
+# Ignore all vendor artifacts (gems, node_modules, etc.)
+/vendor/
 
 # Ignore all environment files (except templates).
 /.env*
@@ -36,3 +40,6 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+hotwired_november_todoapp_development
+hotwired_november_todoapp_test

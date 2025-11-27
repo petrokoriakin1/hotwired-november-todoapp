@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 class CreateLists < ActiveRecord::Migration[7.1]
+  # Superseded by `20231101000000_squashed_schema.rb`.
   def change
-    create_table :lists, id: :uuid do |t|
-      t.string :title
-      t.string :description
-      t.boolean :template, default: false, null: false
-
-      t.timestamps
-    end
+    # no-op
   end
 end
