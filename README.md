@@ -11,6 +11,6 @@ bundle install
 
 bin/rails db:create db:migrate db:seed
 
-bin/dev
+overmind start
 ```
 

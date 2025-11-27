@@ -25,4 +25,5 @@ group :development, :test do
   gem 'rubocop-rails', '~> 2.34'
   gem 'rubocop-rspec', '~> 3.8'
   gem 'strong_versions', '~> 0.4.5'
+  gem 'overmind', '~>2.5.1'
 end
