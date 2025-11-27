@@ -17,12 +17,6 @@ jobs:
           ruby-version: '3.4'
           bundler-cache: true
 
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle config set --local path 'vendor/bundle'
-          bundle install --jobs 4 --retry 3
-
       - name: Precompile assets
         run: bin/rails assets:precompile
 
