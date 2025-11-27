@@ -28,6 +28,11 @@ jobs:
       - name: Run RuboCop
         run: bundle exec rubocop --parallel --format simple
 
+      - name: Run strong_versions
+        run: |
+          gem install strong_versions
+          strong_versions
+
       - name: Prepare DB
         run: |
           bin/rails db:create db:migrate db:schema:dump
