@@ -312,7 +312,7 @@ DEPENDENCIES
   factory_bot_rails (~> 6.5)
   importmap-rails (~> 2.2)
   jbuilder (~> 2.14)
-  overmind (~> 2.5.1)
+  overmind (~> 2.5)
   pry-byebug (~> 3.11)
   pry-rails (~> 0.3.11)
   puma (~> 7.1)
