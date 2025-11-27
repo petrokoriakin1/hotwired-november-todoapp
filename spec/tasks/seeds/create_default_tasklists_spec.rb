@@ -47,8 +47,7 @@ RSpec.describe Seeds::CreateDefaultTasklists do
     end
 
     it 'creates some completed tasks' do
-      pending('the YAML loading is not so great yet')
-      expect { seed_data_loading }.to change { Task.where(completed: true).count }.from(0)
+      expect { seed_data_loading }.to change { Task.where(completed: true).count }.from(0).to(1)
     end
   end
 end

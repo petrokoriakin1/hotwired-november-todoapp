@@ -11,7 +11,7 @@
       tasks:
         - title: Hull Scraping
           description: Remove barnacles and other sea life attached to the hull.
-          competed: true
+          completed: true
         - title: Pressure Washing
           description: Clean the hull with high-pressure water jets.
     - title: Repair
