@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.2
-FROM ruby:$RUBY_VERSION-slim as base
+ARG RUBY_VERSION=3.4.7
+FROM ruby:${RUBY_VERSION}-slim as base
 
 LABEL fly_launch_runtime="rails"
 
@@ -12,7 +12,9 @@ WORKDIR /rails
 # Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development:test" \
-    BUNDLE_DEPLOYMENT="1"
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_JOBS=4
 
 # Update gems and bundler
 RUN gem update --system --no-document && \
@@ -20,17 +22,20 @@ RUN gem update --system --no-document && \
 
 
 # Throw-away build stage to reduce size of final image
+# Throw-away build stage to reduce size of final image
 FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev
+    apt-get install --no-install-recommends -y build-essential libpq-dev ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
-RUN bundle install && \
+RUN bundle config set --local path "$BUNDLE_PATH" && \
+    bundle install --jobs $BUNDLE_JOBS --retry 3 && \
     bundle exec bootsnap precompile --gemfile && \
-    rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
+    rm -rf ~/.bundle/ "$BUNDLE_PATH"/ruby/*/cache "$BUNDLE_PATH"/ruby/*/bundler/gems/*/.git
 
 # Copy application code
 COPY --link . .
@@ -47,8 +52,8 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y curl postgresql-client ca-certificates && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -56,8 +61,14 @@ COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /rails && \
+    chown -R rails:rails /usr/local/bundle && \
+    mkdir -p /rails/tmp /rails/log /rails/db /rails/storage && \
+    chown -R rails:rails /rails/tmp /rails/log /rails/db /rails/storage
 USER rails:rails
+
+# Ensure entrypoint is executable
+RUN chmod +x /rails/bin/docker-entrypoint || true
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]

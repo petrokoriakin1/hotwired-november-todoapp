@@ -20,6 +20,11 @@ jobs:
       - name: Precompile assets
         run: bin/rails assets:precompile
 
+      - name: Validate Dockerfile (build)
+        run: |
+          docker --version || true
+          docker build --file Dockerfile --tag hotwired-november-todoapp:ci .
+
       - name: Run RuboCop
         run: bundle exec rubocop --parallel --format simple
 
