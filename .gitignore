@@ -8,6 +8,9 @@
 /.bundle
 /vendor/bundle
 
+# Ignore all vendor artifacts (gems, node_modules, etc.)
+/vendor/
+
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
