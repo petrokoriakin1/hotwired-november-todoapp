@@ -75,4 +75,6 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+# Bind to all interfaces so Fly / external routers can reach the server
+# Use port 3000 which matches `internal_port` in `fly.toml`.
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]

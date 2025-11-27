@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 # If running the rails server then create or migrate existing database
-if [ "${*}" == "./bin/rails server" ]; then
-  # ./bin/rails db:truncate # temp workaround. will be removed
+# Check the first two positional args so additional flags (eg -b/-p) won't break detection
+if [ "${1}" = "./bin/rails" ] && [ "${2}" = "server" ]; then
   ./bin/rails db:prepare
 fi
 

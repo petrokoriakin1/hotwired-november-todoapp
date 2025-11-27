@@ -1,36 +1,59 @@
-# fly.toml app configuration file generated for hotwired-november-todoapp on 2023-11-06T19:45:20+02:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+# fly.toml - Updated for 2025
 
-app = "hotwired-november-todoapp"
-primary_region = "waw"
-console_command = "/rails/bin/rails console"
+app = 'hotwired-november-todoapp'
+primary_region = 'waw'
+console_command = './bin/rails console'
 
-[build]
+# No build section needed - Fly auto-detects Dockerfile
+
+[deploy]
+  release_command = './bin/rails db:migrate'
+
+[env]
+  RAILS_ENV = 'production'
+  RAILS_LOG_TO_STDOUT = 'true'
+  RAILS_SERVE_STATIC_FILES = 'true'
 
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'suspend'  # Updated: 'suspend' is more efficient than boolean
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
-[checks]
-  [checks.status]
-    port = 3000
-    type = "http"
-    interval = "10s"
-    timeout = "2s"
-    grace_period = "5s"
-    method = "GET"
-    path = "/up"
-    protocol = "http"
-    tls_skip_verify = false
-    [checks.status.headers]
-      X-Forwarded-Proto = "https"
+  # Updated health check configuration
+  [http_service.concurrency]
+    type = 'connections'
+    hard_limit = 1000
+    soft_limit = 1000
 
+[[http_service.checks]]
+  interval = '10s'
+  timeout = '2s'
+  grace_period = '5s'
+  method = 'GET'
+  path = '/up'
+  protocol = 'http'
+  tls_skip_verify = false
+  
+  [http_service.checks.headers]
+    X-Forwarded-Proto = 'https'
+
+# Static asset serving
 [[statics]]
-  guest_path = "/rails/public"
-  url_prefix = "/"
+  guest_path = '/rails/public'
+  url_prefix = '/'
+
+# SQLite persistence (CRITICAL for your app)
+[[mounts]]
+  source = 'data'
+  destination = '/rails/storage'
+  initial_size = '1GB'
+
+# Machine configuration (optimized for small apps)
+[[vm]]
+  size = 'shared-cpu-1x'  # 256MB RAM, 1 shared CPU
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
