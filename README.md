@@ -4,7 +4,7 @@
 
 ## Local dev setup
 
-Make sure you have `ruby 3`, `rails 8` and `PostgreSQL 18` on your machine. To install them, [a brief guide from GoRails](https://gorails.com/setup) can be used.
+Make sure you have `ruby 3`, `rails 8` and `SQLite3` on your machine. To install them, [a brief guide from GoRails](https://gorails.com/setup) can be used.
 
 ```
 bundle install
