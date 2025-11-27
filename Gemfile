@@ -19,7 +19,7 @@ gem 'turbo-rails', '~> 2.0'
 group :development, :test do
   gem 'dockerfile-rails', '~> 1.7'
   gem 'factory_bot_rails', '~> 6.5'
-  gem 'overmind', '~>2.5.1'
+  gem 'overmind', '~> 2.5'
   gem 'pry-byebug', '~> 3.11'
   gem 'pry-rails', '~> 0.3.11'
   gem 'rspec-rails', '~> 8.0'
