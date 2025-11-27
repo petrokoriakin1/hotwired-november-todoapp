@@ -16,6 +16,10 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    // preserve commonly used color utilities that may be generated dynamically
+    { pattern: /^(bg|text|border)-(?:darkBg|darkAccent|gray|blue|white|red|green)(?:-(?:50|100|200|300|400|500|600|700|800|900))?$/ },
+  ],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
